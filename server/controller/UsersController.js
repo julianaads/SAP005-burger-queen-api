@@ -29,4 +29,23 @@ const getAllUsers = (req, res) => {
   res.send(bdUsers)
 }
 
-module.exports = { getAllUsers}
+const getDeleteUsers = (req, res) => {
+let id = Number(req.params.id)
+  const newBdUsers = bdUsers.filter(data => data.id != id)
+  res.send(newBdUsers)
+  console.log(id)
+
+  
+}
+
+const getPostUser = (req, res) => {
+  const body = req.body;
+  if(!body){
+    res.status(400).end();
+  } else { 
+    bdUsers.push(body);
+    res.send(body);
+  }
+}
+
+module.exports = { getAllUsers, getPostUser, getDeleteUsers}
