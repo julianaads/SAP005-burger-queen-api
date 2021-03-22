@@ -33,9 +33,7 @@ const getDeleteUsers = (req, res) => {
 let id = Number(req.params.id)
   const newBdUsers = bdUsers.filter(data => data.id != id)
   res.send(newBdUsers)
-  console.log(id)
-
-  
+  console.log(id)  
 }
 
 const getPostUser = (req, res) => {
