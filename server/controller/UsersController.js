@@ -33,6 +33,21 @@ const postNewUser = async (req, res) => {
   }
 }
 
+const deleteUser = async (req, res) => {
+  try {
+    const { postId } = req.params;
+    const deleted = await models.User.destroy({
+      where: { id: postId }
+    });
+    if (deleted) {
+      return res.status(204).send("User deleted");
+    }
+    throw new Error("User not found");
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+};
+
 // const bdUsers = [
 //   { id: 1, 
 //     username: 'Carla Diaz', 
@@ -79,4 +94,4 @@ const postNewUser = async (req, res) => {
 //   }
 // }
 
-module.exports = { findAll, postNewUser}
+module.exports = { findAll, postNewUser, deleteUser}
