@@ -23,8 +23,14 @@ const findAll = async (req, res) => {
 }
 
 const postNewUser = async (req, res) => {
-    req.body
-  console.log("blá blá blá")
+  try {
+    const post = await models.User.create(req.body);
+    return res.status(201).json({
+      post,
+    });
+  } catch (error) {
+    return res.status(500).json({error: error.message})
+  }
 }
 
 // const bdUsers = [

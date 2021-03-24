@@ -5,6 +5,7 @@ const router = Router()
 
 // aqui vai todas as rotas
 router.use('/Users', Users);
-// router.use('/ExampleRouter', ExampleRouter);
+
+// router.use('/Orders', Orders);
 
 module.exports = router
