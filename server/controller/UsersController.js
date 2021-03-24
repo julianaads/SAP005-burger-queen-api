@@ -22,6 +22,11 @@ const findAll = async (req, res) => {
   }
 }
 
+const postNewUser = async (req, res) => {
+    req.body
+  console.log("blá blá blá")
+}
+
 // const bdUsers = [
 //   { id: 1, 
 //     username: 'Carla Diaz', 
@@ -68,4 +73,4 @@ const findAll = async (req, res) => {
 //   }
 // }
 
-module.exports = { findAll}
+module.exports = { findAll, postNewUser}
