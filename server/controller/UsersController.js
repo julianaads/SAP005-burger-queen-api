@@ -48,50 +48,20 @@ const deleteUser = async (req, res) => {
   }
 };
 
-// const bdUsers = [
-//   { id: 1, 
-//     username: 'Carla Diaz', 
-//     email: 'diazcarla@gmail.com',
-//     role: 'cozinheira'
+const updateUser = async (req, res) => {
+  try {
+    const { uid } = req.params;
+    const [ updated ] = await models.User.update(req.body, {
+      where: { id: uid }
+    });
+    if (updated) {
+      const updatedUser = await models.User.findOne({ where: { id: uid } });
+      return res.status(200).json({ post: updatedUser });
+    }
+    throw new Error('Post not found');
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+};
 
-// },
-//   { id: 2, 
-//     username: 'João Luiz', 
-//     email: 'jluiz@gmail.com',
-//     role: 'atendente' 
-//   }, 
-//   { id: 3, 
-//     username: 'Camila de Lucas', 
-//     email: 'camiladl@gmail.com',
-//     role:"cozinheira"
-//   },
-//   { id: 4, 
-//     username: 'Juliete Freire', 
-//     email: 'jufreire@gmail.com',
-//     role: 'atendente',
-//   }
-// ]
-
-
-// const getAllUsers = (req, res) => {
-//   res.send(bdUsers)
-// }
-
-// const getDeleteUsers = (req, res) => {
-// let id = Number(req.params.id)
-//   const newBdUsers = bdUsers.filter(data => data.id != id)
-//   res.send(newBdUsers)
-//   console.log(id)  
-// }
-
-// const getPostUser = (req, res) => {
-//   const body = req.body;
-//   if(!body){
-//     res.status(400).end();
-//   } else { 
-//     bdUsers.push(body);
-//     res.send(body);
-//   }
-// }
-
-module.exports = { findAll, postNewUser, deleteUser}
+module.exports = { findAll, postNewUser, deleteUser, updateUser}
