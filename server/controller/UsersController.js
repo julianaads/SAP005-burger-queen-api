@@ -22,6 +22,21 @@ const findAll = async (req, res) => {
   }
 }
 
+const usersById = async (req, res) => {
+  try {
+    const { uid } = req.params;
+    const idUser = await models.User.findOne({
+      where: { id: uid},
+    });
+    if (idUser) {
+      return res.status(200).json({ idUser });
+    }
+    return res.status(404).send('Nenhum usuário encontrado com este ID');
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+}
+
 const postNewUser = async (req, res) => {
   try {
     const post = await models.User.create(req.body);
@@ -64,4 +79,4 @@ const updateUser = async (req, res) => {
   }
 };
 
-module.exports = { findAll, postNewUser, deleteUser, updateUser}
+module.exports = { findAll, postNewUser, deleteUser, updateUser, usersById}
