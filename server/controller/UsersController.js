@@ -35,9 +35,9 @@ const postNewUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
-    const { postId } = req.params;
+    const { uid } = req.params;
     const deleted = await models.User.destroy({
-      where: { id: postId }
+      where: { id: uid }
     });
     if (deleted) {
       return res.status(204).send("User deleted");

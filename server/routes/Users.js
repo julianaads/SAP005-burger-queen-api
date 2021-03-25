@@ -7,6 +7,6 @@ const router = Router()
 router.get("/", UsersController.findAll);
 // router.get("/:uid", UsersController.PostById);
 router.post("/", UsersController.postNewUser);
-router.delete("/:postId", UsersController.deleteUser);
+router.delete("/:uid", UsersController.deleteUser);
 
 module.exports = router
