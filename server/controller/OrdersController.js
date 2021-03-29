@@ -20,16 +20,36 @@ const findAllOrders = async (req, res) => {
       console.log(err)
     }
   }
-
 const postNewOrder = async (req, res) => {
-    try {
-      const order = await models.Orders.create(req.body);
-      return res.status(201).json({
-        order,
-      });
-    } catch (error) {
-      return res.status(500).json({error: error.message})
+    const {
+        userId, 
+        clientName, 
+        table, 
+        status, 
+        processedAt
+      } = req.body;
+
+      models.Orders.create({
+        userId,
+        clientName,
+        table,
+        status,
+        processedAt:new Date(),
+      })
+        .then((result) => {
+          res.status(201).json(result);
+        })
+        .catch(() => res.status(400).json({
+          message: 'algo de errado não está certo',
+        }));
+//     try {
+//       const order = await models.Orders.create(req.body);
+//       return res.status(201).json({
+//         order, 
+//       });
+//     } catch (error) {
+//       return res.status(500).json({error: error.message})
+//     }
     }
-  }
 
 module.exports = {postNewOrder, findAllOrders}
