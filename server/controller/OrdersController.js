@@ -21,12 +21,13 @@ const findAllOrders = async (req, res) => {
     }
   }
 const postNewOrder = async (req, res) => {
-    const {
+    
+  const {
         userId, 
         clientName, 
         table, 
         status, 
-        processedAt
+        
       } = req.body;
 
       models.Orders.create({
@@ -45,6 +46,24 @@ const postNewOrder = async (req, res) => {
     }
 
     const ordersById = async (req, res) => {
+      // try {
+      //   const posts = await models.Orders.findAll({
+      //     include: [
+      //       {
+      //         model: models.Products,
+      //         as: 'Orders'
+      //       },
+      //       {
+      //         model: models.User,
+      //         attributes:['username', 'id']
+      //       }
+      //     ]
+      //   });
+      //   return res.status(200).json({ posts });
+      // } catch (error) {
+      //   return res.status(500).send(error.message);
+      // }
+
         try {
           const { uid } = req.params;
           const idOrders = await models.Orders.findOne({

@@ -4,7 +4,12 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Orders extends Model {
-    
+    static associate(models) {
+    Products.belongsToMany(models.Orders, {
+      through: 'ProductsOrders',
+      foreignKey: 'orderId'
+  })
+  }
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
