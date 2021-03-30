@@ -5,8 +5,9 @@ const router = Router()
 
 // aqui vai as requisições
 router.get("/", OrdersController.findAllOrders);
+router.get("/:uid", OrdersController.ordersById);
 router.post("/", OrdersController.postNewOrder);
-// router.delete("/:id",  OrdersController.getDeleteUsers);
-// router.put("/:uid", UsersController.updateUser);
+router.delete("/:uid",  OrdersController.deleteOrders);
+router.put("/:uid", OrdersController.updateOrders);
 
 module.exports = router

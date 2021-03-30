@@ -14,7 +14,7 @@ const findAllProducts = async (req, res) => {
         res.json(allProducts)
       } else {
         res.json({
-          message: "Nenhum produto encontrado"
+          message: 'Nenhum produto encontrado'
         })
       }
     } catch (err) {
@@ -31,7 +31,7 @@ const findAllProducts = async (req, res) => {
       if (idProducts) {
         return res.status(200).json({ idProducts });
       }
-      return res.status(404).send('Nenhum Produto encontrado com este ID');
+      return res.status(404).send('Não localizamos este ID');
     } catch (error) {
       return res.status(500).send(error.message);
     }
@@ -55,9 +55,9 @@ const findAllProducts = async (req, res) => {
         where: { id: uid }
       });
       if (deleted) {
-        return res.status(204).send("User deleted");
+        return res.status(200).send('Produto removido com sucesso');
       }
-      throw new Error("User not found");
+      throw new Error('Oops...Não foi possível localizar o produto com o ID');
     } catch (error) {
       return res.status(500).send(error.message);
     }
@@ -73,7 +73,7 @@ const findAllProducts = async (req, res) => {
         const updatedProducts = await models.User.findOne({ where: { id: uid } });
         return res.status(200).json({ post: updatedProducts });
       }
-      throw new Error('Product not found');
+      throw new Error('Oops...Não foi possível localizar o produto');
     } catch (error) {
       return res.status(500).send(error.message);
     }

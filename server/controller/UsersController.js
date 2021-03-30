@@ -14,7 +14,7 @@ const findAll = async (req, res) => {
       res.json(allUsers)
     } else {
       res.json({
-        message: "Nenhum usuário encontrado"
+        message: 'Nenhum usuário encontrado'
       })
     }
   } catch (err) {
@@ -55,9 +55,9 @@ const deleteUser = async (req, res) => {
       where: { id: uid }
     });
     if (deleted) {
-      return res.status(204).send("User deleted");
+      return res.status(200).send('Usuário Removido');
     }
-    throw new Error("User not found");
+    throw new Error('Ops...Usuário não localizado');
   } catch (error) {
     return res.status(500).send(error.message);
   }
@@ -73,7 +73,7 @@ const updateUser = async (req, res) => {
       const updatedUser = await models.User.findOne({ where: { id: uid } });
       return res.status(200).json({ post: updatedUser });
     }
-    throw new Error('Post not found');
+    throw new Error('Oops...Não foi possível localizar o usuário');
   } catch (error) {
     return res.status(500).send(error.message);
   }

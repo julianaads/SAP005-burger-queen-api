@@ -42,14 +42,52 @@ const postNewOrder = async (req, res) => {
         .catch(() => res.status(400).json({
           message: 'algo de errado não está certo',
         }));
-//     try {
-//       const order = await models.Orders.create(req.body);
-//       return res.status(201).json({
-//         order, 
-//       });
-//     } catch (error) {
-//       return res.status(500).json({error: error.message})
-//     }
     }
 
-module.exports = {postNewOrder, findAllOrders}
+    const ordersById = async (req, res) => {
+        try {
+          const { uid } = req.params;
+          const idOrders = await models.Orders.findOne({
+            where: { id: uid},
+          });
+          if (idOrders) {
+            return res.status(200).json({ idOrders });
+          }
+          return res.status(404).send('Não localizamos este ID');
+        } catch (error) {
+          return res.status(500).send(error.message);
+        }
+      }
+
+    const deleteOrders = async (req, res) => {
+        try {
+          const { uid } = req.params;
+          const deleted = await models.Orders.destroy({
+            where: { id: uid }
+          });
+          if (deleted) {
+            return res.status(200).send("Sua ordem foi removida");
+          }
+          throw new Error("Oops...Não localizamos essa ordem");
+        } catch (error) {
+          return res.status(500).send(error.message);
+        }
+      };
+
+      const updateOrders = async (req, res) => {
+        try {
+          const { uid } = req.params;
+          const [ updated ] = await models.Orders.update(req.body, {
+            where: { id: uid }
+          });
+          if (updated) {
+            const updatedOrders = await models.Orders.findOne({ where: { id: uid } });
+            return res.status(200).json({ post: updatedOrders });
+          }
+          throw new Error('Oops...Não foi possível localizar o produto');
+        } catch (error) {
+          return res.status(500).send(error.message);
+        }
+      };
+
+module.exports = {postNewOrder, findAllOrders, deleteOrders, ordersById, updateOrders}
