@@ -4,10 +4,12 @@ const models = require('../db/models')
 const findAllOrders = async (req, res) => {
     try {
       const allOders = await models.Orders.findAll({
-        raw: true,
-        attributes: {
-          exclude: ['password']
-        }
+          
+        include:[
+          {
+            model: models.Products
+          }
+        ]
       })
       if (allOders.length > 0) {
         res.json(allOders)
@@ -16,54 +18,34 @@ const findAllOrders = async (req, res) => {
           message: "Nenhuma ordem encontrada"
         })
       }
-    } catch (err) {
-      console.log(err)
+    } catch (erro) {
+      res.status(400).json({message: 'algo de errado não está certo'})
     }
   }
 const postNewOrder = async (req, res) => {
-    
-  const {
+  const  {
         userId, 
         clientName, 
         table, 
         status, 
-        
+        products,
       } = req.body;
-
-      models.Orders.create({
-        userId,
-        clientName,
-        table,
-        status,
-        processedAt:new Date(),
-      })
-        .then((result) => {
-          res.status(201).json(result);
+      try {
+        const order = await models.Orders.create({
+          userId,
+          clientName,
+          table,
+          status,
+          processedAt:new Date(),
         })
-        .catch(() => res.status(400).json({
-          message: 'algo de errado não está certo',
-        }));
+        console.log(order.id)
+        res.status(201).json(order);
+      }catch(erro){
+        res.status(400).json({message: 'algo de errado não está certo'})
+      }
     }
 
     const ordersById = async (req, res) => {
-      // try {
-      //   const posts = await models.Orders.findAll({
-      //     include: [
-      //       {
-      //         model: models.Products,
-      //         as: 'Orders'
-      //       },
-      //       {
-      //         model: models.User,
-      //         attributes:['username', 'id']
-      //       }
-      //     ]
-      //   });
-      //   return res.status(200).json({ posts });
-      // } catch (error) {
-      //   return res.status(500).send(error.message);
-      // }
-
         try {
           const { uid } = req.params;
           const idOrders = await models.Orders.findOne({

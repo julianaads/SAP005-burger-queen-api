@@ -5,10 +5,6 @@ const models = require('../db/models')
 const findAllProducts = async (req, res) => {
     try {
       const allProducts = await models.Products.findAll({
-        raw: true,
-        attributes: {
-          exclude: ['password']
-        }
       })
       if (allProducts.length > 0) {
         res.json(allProducts)
@@ -17,8 +13,8 @@ const findAllProducts = async (req, res) => {
           message: 'Nenhum produto encontrado'
         })
       }
-    } catch (err) {
-      console.log(err)
+    } catch (erro) {
+      res.status(400).json({message: 'algo de errado não está certo'})
     }
   }
 
