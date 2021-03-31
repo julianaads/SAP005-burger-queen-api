@@ -9,9 +9,7 @@ const findAllProducts = async (req, res) => {
       if (allProducts.length > 0) {
         res.json(allProducts)
       } else {
-        res.json({
-          message: 'Nenhum produto encontrado'
-        })
+        res.json({message: 'Nenhum produto encontrado'})
       }
     } catch (erro) {
       res.status(400).json({message: 'algo de errado não está certo'})

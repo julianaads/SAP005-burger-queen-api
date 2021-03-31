@@ -13,9 +13,7 @@ const findAll = async (req, res) => {
     if (allUsers.length > 0) {
       res.json(allUsers)
     } else {
-      res.json({
-        message: 'Nenhum usuário encontrado'
-      })
+      res.json({message: 'Nenhum usuário encontrado'})
     }
   } catch (err) {
     console.log(err)

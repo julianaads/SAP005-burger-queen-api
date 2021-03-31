@@ -14,29 +14,17 @@ const findAllOrders = async (req, res) => {
       if (allOders.length > 0) {
         res.json(allOders)
       } else {
-        res.json({
-          message: "Nenhuma ordem encontrada"
-        })
+        res.json({message: "Nenhuma ordem encontrada"})
       }
     } catch (erro) {
       res.status(400).json({message: 'algo de errado não está certo'})
     }
   }
 const postNewOrder = async (req, res) => {
-  const  {
-        userId, 
-        clientName, 
-        table, 
-        status, 
-        products,
-      } = req.body;
+  const  { userId, clientName, table, status, products,} = req.body;
       try {
         const order = await models.Orders.create({
-          userId,
-          clientName,
-          table,
-          status,
-          processedAt:new Date(),
+          userId, clientName,table,status,processedAt:new Date(),
         })
         console.log(order.id)
         res.status(201).json(order);
