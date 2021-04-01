@@ -24,30 +24,13 @@ const findAllOrders = async (req, res) => {
 const postNewOrder = async (req, res) => {
   try {
     const { userId, clientName, table, status } = req.body;
-    await models.Orders.create({
+   const order = await models.Orders.create({
       userId, clientName, table, status, processedAt: new Date()
     })
-      .then((item) => {
-        req.body.products.map((product) => {
-          const productId = models.ProductsOrders.findByPk(product.id);
-          if (!productId) {
-            return res.status(404).json({
-              message: 'Oops! Produto não localizado',
-            });
-
-          }
-          const prodOrders = {
-            orderId: item.id,
-            productId: product.id,
-            qtd: product.qtd,
-          };
-
-          models.ProductsOrders.create(prodOrders);
-
-          return res.status(201).json(item);
-        });
-      })
-  } catch (error) {
+    return res.status(201).json({
+      order,
+    })
+         } catch (error) {
     res.status(400).json({
       message: 'Oops...Algo de errado não está certo',
     });
