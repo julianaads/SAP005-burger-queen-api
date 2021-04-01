@@ -13,7 +13,7 @@ const findAll = async (req, res) => {
     if (allUsers.length > 0) {
       res.json(allUsers)
     } else {
-      res.json({message: 'Nenhum usuário encontrado'})
+      res.json({ message: 'Nenhum usuário encontrado' })
     }
   } catch (err) {
     console.log(err)
@@ -24,7 +24,7 @@ const usersById = async (req, res) => {
   try {
     const { uid } = req.params;
     const idUser = await models.User.findOne({
-      where: { id: uid},
+      where: { id: uid },
     });
     if (idUser) {
       return res.status(200).json({ idUser });
@@ -42,7 +42,7 @@ const postNewUser = async (req, res) => {
       post,
     });
   } catch (error) {
-    return res.status(500).json({error: error.message})
+    return res.status(500).json({ error: error.message })
   }
 }
 
@@ -64,7 +64,7 @@ const deleteUser = async (req, res) => {
 const updateUser = async (req, res) => {
   try {
     const { uid } = req.params;
-    const [ updated ] = await models.User.update(req.body, {
+    const [updated] = await models.User.update(req.body, {
       where: { id: uid }
     });
     if (updated) {
@@ -77,4 +77,4 @@ const updateUser = async (req, res) => {
   }
 };
 
-module.exports = { findAll, postNewUser, deleteUser, updateUser, usersById}
+module.exports = { findAll, postNewUser, deleteUser, updateUser, usersById }
