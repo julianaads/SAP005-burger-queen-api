@@ -1,4 +1,4 @@
-# Burger Queen - Back-end
+# Burger Queen - Back-end :rocket:
 
 ## Índice
 
@@ -7,7 +7,7 @@
 * [3. Implementações Futuras](#3-Implementações-Futuras)
 
 
-## 1. Introdução
+## 1. Introdução :scroll:
 
 Como último projeto da laboratória foi proposto o desenvolvimento de uma Rest API seguindo como base a utilizada no projeto anterior Burguer Queen, que atendesse a demanda do dia a dia de uma hamburgueria. A Rest API desenvolvida permite que os funcionários façam as seguintes operações:
 
@@ -16,7 +16,7 @@ Como último projeto da laboratória foi proposto o desenvolvimento de uma Rest 
 * Criação de pedido
 * Atualização do status do pedido
 
-## 2. Endpoints
+## 2. Endpoints :dart:
 
 Apresento os Endpoints disponíveis nesta API
 
@@ -51,11 +51,10 @@ link: https://nabrasa-burger.herokuapp.com/Orders
 * `DELETE /orders/:orderId`
 
 
-## 3. Implementações Futuras
+## 3. Implementações Futuras :crystal_ball:
 
 * Criar endpoint de autenticação: POST /auth
 * Criar a documentação da API
 
-* 
-
+## 4. Congratulations :tada:
 
